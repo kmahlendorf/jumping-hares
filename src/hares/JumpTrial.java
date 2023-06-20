@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 
 /**
 * 
@@ -18,6 +19,8 @@ import java.awt.*;
 */
 
 public class JumpTrial {
+	
+	public static final DataFlavor HARE_DATA_FLAVOR = new DataFlavor(Hare.class, "Hare");
 	
 	private static String bg_image = "/images/card_bg.jpg";
 	private static String bg_female = "/images/card_bg_female.png";

@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import cardGame.KPanel;
 import hares.JumpTrial;
 
 /*
@@ -21,12 +22,8 @@ import hares.JumpTrial;
  */
 
 @SuppressWarnings("serial")
-public class TrialCard extends BackgroundPanel{
+public class TrialCard extends KPanel{
 
-	
-	
-	
-	
 	private final int HEIGHT = 210;
 	private final int CARD_WIDTH = 150;
 	private JLabel icon;
@@ -35,8 +32,7 @@ public class TrialCard extends BackgroundPanel{
 	private boolean dark = true;
 	private boolean complete = false;
 	JumpTrial con;
-	
-	
+		
 	
 	public TrialCard(int level, JumpTrial con) throws IOException {
 		super(con.dark_card_bg);

@@ -31,28 +31,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /*
- * TODO: Information Panel -> instructions:
- * 	-> instruction 1: "Please choose a hare for the Jump trial."
- * 	-> instruction 2: lvl 1: "Each of your 2 starting hares carries one copy of a recessive gene that increases jump height. Try to produce offspring with two copies of that gene. 
- * 
- * --> Error// Success message: 
- * 	1) Please choose two Parents. 
- * 	2) <name> cannot jump high enough.
- * 	3) You need to choose a jumper first.
- * 	4) Your deck is full. Please release one hare into the wild.
- * 
- * TODO: 
- * 1) Menu 
- * 2) end popup
- * 3) recognize when win is impossible and offer restart
- * 4) highlight moveable cards on mouseover
- * 5) highlight drop targets on mouseover
- * 6) choose a different font
- * 7) preload graphics
- * 8) split stuff into more classes and add commentary
- * 9) remove debug text
- * 
- * 
+ * TODO: make a class for the frame
+ * cleanup
+ * remove debug text
  */
 
 public class MainFrame {
@@ -148,8 +129,8 @@ public class MainFrame {
 		c.insets = new Insets(50, 10, 10, 10);
 		//c.fill =  GridBagConstraints.HORIZONTAL;
 		contentPane.add(pairing, c);
-		pairing.getCards()[1].setHareGender(0);
-		pairing.getCards()[0].setHareGender(1);
+		pairing.getCards()[1].setHareSex(0);
+		pairing.getCards()[0].setHareSex(1);
 		
 		// pair button
 		child = new KButton("Make child");
@@ -389,9 +370,6 @@ public class MainFrame {
 					else 
 						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	    		}
-	    		
-	    		
-	    		
 	    	}
 	    	else {
 	    		message.setForeground(Color.RED);
@@ -419,7 +397,7 @@ public class MainFrame {
 	        
 	    }
 	};
-		
+
 }
 
 

@@ -2,9 +2,9 @@
  * 
  */
 /**
- * @author kati
+ * @author Katrina Mahlendorf
  *
  */
-module snake_ui {
+module jumping_hares {
 	requires java.desktop;
 }

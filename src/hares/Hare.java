@@ -14,8 +14,7 @@ import java.util.Random;
 
 public class Hare {
 	/*
-	 * hare has attributes and genetics
-	 * also a name and an age
+	 * A hare has genetics, a name and an age. 
 	 */
 
 
@@ -227,7 +226,7 @@ public class Hare {
 	
 	
 	private String name;
-	private int gender; // 0 = male, 1 = female
+	private int sex; // 0 = male, 1 = female
 	
 
 	private String notes = "";
@@ -238,7 +237,7 @@ public class Hare {
 	
 	public Hare(Gene[] genes, int gender) {
 		this.genes = genes;
-		this.gender = gender;
+		this.sex = gender;
 		initialize();
 	}
 	
@@ -247,7 +246,7 @@ public class Hare {
 		inheritance(mother, father);
 		
 		Random rand = new Random();
-		gender = rand.nextInt(2);
+		sex = rand.nextInt(2);
 		
 		initialize();
 	}
@@ -255,15 +254,13 @@ public class Hare {
 	private void initialize(){
 		
 		// generate Name
-		if(getGender() == 0) {
-			System.out.println("Female Hare");
+		if(getSex() == 0) {
 			Collections.shuffle(fName);
 			name = fName.get(0);
 			fName.remove(0);
 		}
 		else {
 			Collections.shuffle(mName);
-			System.out.println("Male Hare");
 			name = mName.get(0);
 			mName.remove(0);
 		}
@@ -316,7 +313,7 @@ public class Hare {
 	public String toString() {
 		
 		String str = getName();
-		if( getGender() == 0)
+		if( getSex() == 1)
 			str += " m";
 		else
 			str += " f";
@@ -331,8 +328,8 @@ public class Hare {
 		return name;
 	}
 
-	public int getGender() {
-		return gender;
+	public int getSex() {
+		return sex;
 	}
 
 	public String getNotes() {
