@@ -42,7 +42,7 @@ public class TrialCard extends BackgroundPanel{
 		super(con.dark_card_bg);
 		this.con = con;
 		this.level = level;
-		//TODO: Options for higher levels
+		
 		initFence(level, con);
 		setPreferredSize(new Dimension(CARD_WIDTH, HEIGHT));
 		setBorder(new LineBorder(new Color(	
@@ -65,6 +65,7 @@ public class TrialCard extends BackgroundPanel{
 		}
 		else if(level == 1)
 			icon = new JLabel(new ImageIcon(con.dark_fence));
+		
 		else
 			icon = new JLabel(new ImageIcon(con.dark_stream_fence));
 		

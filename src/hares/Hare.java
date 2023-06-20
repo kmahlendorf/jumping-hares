@@ -17,10 +17,10 @@ public class Hare {
 	 * hare has attributes and genetics
 	 * also a name and an age
 	 */
-	// Hare counter
 
-	
+
 	// name List
+	// TODO: move to file
 	private static ArrayList<String> fName = new ArrayList<String>(Arrays.asList(
 			"Angel",
 			"Annie",
@@ -253,7 +253,6 @@ public class Hare {
 	}
 	
 	private void initialize(){
-		
 		
 		// generate Name
 		if(getGender() == 0) {

@@ -19,7 +19,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import hares.*;
@@ -36,19 +35,14 @@ import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 
 
 
 /*
- * One card consists of an icon (hare image) + some basic information and space for notes.
+ * One card consists of a name, a discard button, an icon (hare image) and space for notes.
  * 
- * Layout:
- * 
- * Name
- * Icon
- * Textfield
- * Functionality: Move Card over other rabbit card: 
  */
 
 
@@ -68,23 +62,29 @@ public class CardPanel extends BackgroundPanel implements Transferable{
 	private JButton x;
 	private JumpTrial con;
 	
+	// TODO: find a better solution
+	private MainFrame m;
+	
 
-	public CardPanel(Hare hare, String inventory, JumpTrial con) throws IOException {
+	public CardPanel(Hare hare, String inventory, JumpTrial con, MainFrame m){
 		super(con.card_bg);
 		this.hare = hare;
 		this.con = con;
-		
+		this.m = m;
 		
 		initCard(inventory);
 		initHare(hare);
 		setVisible(true);
-		System.out.println("Card");
-		
+				
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			
 			@Override
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	setBorder(BorderFactory.createRaisedBevelBorder());
+				
+				setBorder(BorderFactory.createCompoundBorder(
+						BorderFactory.createRaisedBevelBorder(),
+						BorderFactory.createLineBorder(new Color(0,0,0),2)));
+		    	
 		    }
 			@Override
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -96,11 +96,11 @@ public class CardPanel extends BackgroundPanel implements Transferable{
 	
 	/***
 	 * Make a new empty card
-	 * @throws IOException 
 	 */
-	public CardPanel(String inventory, JumpTrial con) throws IOException{
+	public CardPanel(String inventory, JumpTrial con, MainFrame m){
 		super(con.card_bg);
 		this.con = con;
+		this.m = m;
 		
 		initCard(inventory);
 		
@@ -166,8 +166,6 @@ public class CardPanel extends BackgroundPanel implements Transferable{
 		c.gridy += 1;
 		
 		icon = (hare.getGender() == 1)?  new JLabel(new ImageIcon(con.male)) : new JLabel(new ImageIcon(con.female));
-		
-
 
 		this.add(icon, c);
 		
@@ -312,12 +310,32 @@ public class CardPanel extends BackgroundPanel implements Transferable{
         }
 
         public void dragOver(DropTargetDragEvent dtde) {
+        	if (dtde.getTransferable().isDataFlavorSupported(CardPanel.HARE_DATA_FLAVOR)) {
+        		Transferable t = dtde.getTransferable();
+                try {
+                    Object transferData = t.getTransferData(CardPanel.HARE_DATA_FLAVOR);
+                	
+	        		if(transferData instanceof CardPanel) {
+	                    	Hare hare = (Hare) ((CardPanel) transferData).getHare();
+    
+                		if((card.inventory.equals("pair") && card.getHareGender() == hare.getGender()) || card.inventory.equals("trial") || card.inventory.equals("deck")) {
+	                			card.setBorder(BorderFactory.createCompoundBorder(
+								BorderFactory.createRaisedBevelBorder(),
+								BorderFactory.createLineBorder(new Color(0,0,0),2)));
+	                		}
+	        			}
+	        		} catch (UnsupportedFlavorException | IOException ex) {
+	        			ex.printStackTrace();
+	        		}
+        	}
         }
 
         public void dropActionChanged(DropTargetDragEvent dtde) {
         }
 
         public void dragExit(DropTargetEvent dte) {
+        	card.setBorder(new LineBorder(new Color(0,0,0),2));
+        	
         }
 
         public void drop(DropTargetDropEvent dtde) {
@@ -398,6 +416,19 @@ public class CardPanel extends BackgroundPanel implements Transferable{
 	    public void actionPerformed(ActionEvent e) {
 	    	setEmpty();
 	    	
+	    	// check if game can still be completed
+	    	boolean canWin = JumpTrial.canWin(m.getHares());
+	    	
+	    	if(!canWin) {
+	    		int death = LooseWindow.death(m.frame);
+	    		
+				if(death == 0) 
+					m.restart();
+
+				else 
+					m.frame.dispatchEvent(new WindowEvent(m.frame, WindowEvent.WINDOW_CLOSING));
+
+	    	}
 	    }
 	}
 

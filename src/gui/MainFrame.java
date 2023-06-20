@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -56,7 +57,7 @@ import javax.swing.JMenuItem;
 
 public class MainFrame {
 
-	private JFrame frame;
+	public JFrame frame;
 	private HarePanel harePanel;
 	private HarePanel pairing;
 	private JButton child;
@@ -126,7 +127,7 @@ public class MainFrame {
 		
 		// row 1: deck
 		
-		harePanel = new HarePanel(6, 1, deck, "deck", con);
+		harePanel = new HarePanel(6, 1, deck, "deck", con, this);
 		
 		c.gridx = 0;
 		c.gridy = 0;
@@ -140,7 +141,7 @@ public class MainFrame {
 		// a harePanel for two
 		// + a button 
 		// text
-		pairing = new HarePanel(2, 1, null, "pair", con);
+		pairing = new HarePanel(2, 1, null, "pair", con, this);
 		
 		c.gridy = 1;
 		c.gridwidth = 2;
@@ -202,7 +203,7 @@ public class MainFrame {
 		
 		// add jump trial
 		// panel for Hare that should jump
-		chosen = new HarePanel(1, 1, null, "trial", con);
+		chosen = new HarePanel(1, 1, null, "trial", con, this);
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridy = 2;
 		c.gridx = 0;
@@ -267,7 +268,7 @@ public class MainFrame {
 	}
 	
 	
-	private void restart() {
+	public void restart() {
 		// delete all existing hares
 		//1) in deck:
 		harePanel.setEmpty();
@@ -293,7 +294,7 @@ public class MainFrame {
 	}
 	
 	public Hare[] getHares() {
-
+		
 		Hare[] hd = harePanel.getHares();
 		Hare[] hp = pairing.getHares();
 		Hare[] hc = chosen.getHares();
@@ -357,7 +358,7 @@ public class MainFrame {
 	    	Jump obstacle = JumpTrial.getJump();
 	    	
 	    	if(hare.jump(obstacle)) {
-	    		//TODO: Success triggers new level
+	    		
 	    		message.setForeground(Color.GREEN);
 	    		message.setText("Jump successful.");
 	    		
@@ -377,6 +378,19 @@ public class MainFrame {
 	    			trials[0].goLight();
 	    			JumpTrial.newLvl(trials[0].level);
 	    		}
+	    		
+	    		if(i == 2) {
+	    			//win if trial 3 was completed
+	    			int win = WinWindow.win(frame);
+		    		
+					if(win == 0) 
+						restart();
+
+					else 
+						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	    		}
+	    		
+	    		
 	    		
 	    	}
 	    	else {

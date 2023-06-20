@@ -118,11 +118,19 @@ public class JumpTrial {
 	}
 
 	
+
+	 /**
+    * Set game level
+    * @param level
+    *     */
 	public static void newLvl(int level) {
 		lvl = level;
-		// TODO
 	}
 	
+	/**
+     * Generate parameters for jump trial based on current level
+     * @return Jump
+     */
 	public static Jump getJump() {
 		if(lvl == 0) {
 			return new Jump(0, 1);
@@ -133,27 +141,27 @@ public class JumpTrial {
 		return new Jump(1, 1);
 	}
 	
+	/**
+     * Calcultate if the game is still winnable based on the current hare deck.
+     * @param hares
+     * @return true if the game can still be completed.
+     */
 	public static boolean canWin(Hare[] hares) {
-		boolean hGene1 = false;
-		boolean hGene2 = false;
+		boolean hGene = false;
 		boolean wGene = false;
 		
 		for(Hare h : hares) {
-			if(h.getGenes()[0].hasOne()) {
-				if(hGene1)
-					hGene2 = true;
-				else
-					hGene1 = true;
-			}
+			if(h.getGenes()[0].hasOne()) 
+				hGene = true;
+
 			if(h.getGenes()[1].hasOne()) 
 				wGene = true;
 			
-			
-			if(hGene1 && hGene2 && wGene)
+			if(hGene && wGene)
 				break;
 		}
-				
-		return hGene1 && hGene2 && wGene;
+
+		return hGene && wGene;
 		
 	}
 	

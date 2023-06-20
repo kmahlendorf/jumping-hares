@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
 import hares.Hare;
@@ -35,7 +33,7 @@ public class HarePanel extends JPanel {
 	 * @throws IOException 
      */
 	
-	public HarePanel(int size, int height, Hare[] startingHares, String inventory, JumpTrial con) throws IOException{
+	public HarePanel(int size, int height, Hare[] startingHares, String inventory, JumpTrial con, MainFrame m){
 		
 		int width;
 		if (size <= 8 || name.equals("Offspring")) {
@@ -55,11 +53,11 @@ public class HarePanel extends JPanel {
 		
 		this.setPreferredSize(new Dimension(size*CARD_WIDTH+ size*5, HEIGHT));
 		setBackground(new Color(205,186,150));
-		initCards(startingHares, size, inventory, con);
+		initCards(startingHares, size, inventory, con, m);
 	}
 	
 
-	private void initCards(Hare[] startingHares, int size, String inventory, JumpTrial con) throws IOException {
+	private void initCards(Hare[] startingHares, int size, String inventory, JumpTrial con, MainFrame m){
 		// initialize with a set of starting cards
 		// 1) make cards
 		
@@ -68,7 +66,7 @@ public class HarePanel extends JPanel {
 		if(startingHares == null) {
 			for(int i = 0 ;i < size; i++) {
 				// add invisuble empty cards
-				getCards()[i] = new CardPanel(inventory, con);
+				getCards()[i] = new CardPanel(inventory, con, m);
 				add(getCards()[i]);
 			}
 		}
@@ -76,13 +74,13 @@ public class HarePanel extends JPanel {
 		
 			int i = 0;
 			for (; i < startingHares.length; i++){
-				getCards()[i] = new CardPanel(startingHares[i], inventory, con);
+				getCards()[i] = new CardPanel(startingHares[i], inventory, con, m);
 				add(getCards()[i]);
 				getCards()[i].setVisible(true);
 			}
 			for(;i < size; i++) {
 				// add invisuble empty cards
-				getCards()[i] = new CardPanel(inventory, con);
+				getCards()[i] = new CardPanel(inventory, con, m);
 				add(getCards()[i]);
 			}
 		}
@@ -115,15 +113,22 @@ public class HarePanel extends JPanel {
 	
 	public Hare[] getHares() {
 		
-		ArrayList<Hare> hares = new ArrayList<Hare>();
+		Hare[] hares = new Hare[0];
 		
 		for(CardPanel card: cards) {
 			if(card.isEmpty())
 				continue;
-			hares.add(card.getHare());
+			
+			Hare[] hares1 = new Hare[hares.length+1];
+			
+			for(int i = 0; i < hares1.length-1; i++) {
+				hares1[i] = hares[i];
+			}
+			hares1[hares1.length-1] = card.getHare();
+			hares = hares1;
 		}
-		
-		return (Hare[]) hares.toArray();
+			
+		return hares;
 	}
 	
 
