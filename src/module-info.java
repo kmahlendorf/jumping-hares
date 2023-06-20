@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author kati
+ * @author Katrina Mahlendorf
  *
  */
 module snake_ui {
