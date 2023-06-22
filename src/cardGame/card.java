@@ -34,10 +34,6 @@ import hares.JumpTrial;
 @SuppressWarnings("serial")
 public abstract class Card extends KPanel implements Transferable{
 	
-	/**
-	 * 
-	 */
-
 	private String inventory;
 	//private Object entity;
 
@@ -82,7 +78,6 @@ public abstract class Card extends KPanel implements Transferable{
 	            DragSource ds = dge.getDragSource();
 	            ds.startDrag( dge, null, t, new DragSourceHandler(panel));
         	}
-        	 
         }
         
         protected class DragSourceHandler implements DragSourceListener {
@@ -123,9 +118,11 @@ public abstract class Card extends KPanel implements Transferable{
 			@Override
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 				
-				setBorder(BorderFactory.createCompoundBorder(
-						BorderFactory.createRaisedBevelBorder(),
-						BorderFactory.createLineBorder(new Color(0,0,0),2)));
+				if(!isEmpty()) {
+					setBorder(BorderFactory.createCompoundBorder(
+							BorderFactory.createRaisedBevelBorder(),
+							BorderFactory.createLineBorder(new Color(0,0,0),2)));
+				}
 		    }
 			@Override
 		    public void mouseExited(java.awt.event.MouseEvent evt) {

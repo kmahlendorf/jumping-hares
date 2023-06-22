@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -48,7 +47,9 @@ public class MainFrame {
 	
 	private JLabel message;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+			
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,7 +60,6 @@ public class MainFrame {
 				}
 			}
 		});
-
 	}
 
 	public MainFrame() throws IOException {

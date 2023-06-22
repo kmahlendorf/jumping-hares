@@ -1,7 +1,5 @@
 package hares;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -16,215 +14,6 @@ public class Hare {
 	/*
 	 * A hare has genetics, a name and an age. 
 	 */
-
-
-	// name List
-	// TODO: move to file
-	private static ArrayList<String> fName = new ArrayList<String>(Arrays.asList(
-			"Angel",
-			"Annie",
-			"Arabella",
-			"Aster",
-			"Ava",
-			"Bella",
-			"Betsy",
-			"Binky",
-			"Bluebell",
-			"Bonnie",
-			"Bubbles",
-			"Calla",
-			"Carly",
-			"Cherry",
-			"Chrissy",
-			"Cookie",
-			"Cutie",
-			"Daffodil",
-			"Daisy",
-			"Darcy",
-			"Delilah",
-			"Ellie",
-			"Evie",
-			"Florence",
-			"Fluffy",
-			"Fressia",
-			"Freya",
-			"Fuzzy",
-			"Gem",
-			"Georgie",
-			"Gracie",
-			"Harper",
-			"Harriet",
-			"Hazel",
-			"Heather",
-			"Holly",
-			"Hope",
-			"Iris",
-			"Isla",
-			"Ivy",
-			"Jasmine",
-			"Jessie",
-			"Joy",
-			"Juniper",
-			"Karla",
-			"Lavender",
-			"Layla",
-			"Lilac",
-			"Lottie",
-			"Luna",
-			"Maple",
-			"Marigold",
-			"Milly",
-			"Minnie",
-			"Moon",
-			"Moss",
-			"Nina",
-			"Opal",
-			"Orchid",
-			"Pansy",
-			"Peaches",
-			"Petal",
-			"Pip",
-			"Popcorn",
-			"Poppet",
-			"Poppy",
-			"Queenie",
-			"Quinn",
-			"Rae",
-			"Rain",
-			"Raspberry",
-			"River",
-			"Rosie",
-			"Sage",
-			"Sally",
-			"Salsa",
-			"Saturn",
-			"Sparkle",
-			"Stella",
-			"Star",
-			"Strawberry",
-			"Sugar",
-			"Summer",
-			"Sunflower",
-			"Sweetie",
-			"Tessie",
-			"Tilly",
-			"Toffee",
-			"Treacle",
-			"Trinket",
-			"Tulip",
-			"Twinkle",
-			"Venus",
-			"Violet",
-			"Wanda",
-			"Willow",
-			"Winnie",
-			"Zara",
-			"Zinnia"
-		));
-
-	private static ArrayList<String> mName = new ArrayList<String>(Arrays.asList("Arlo",
-			"Angus",
-			"Arkwright",
-			"Alonso",
-			"Bernard",
-			"Benji",
-			"Boris",
-			"Buster",
-			"Brutus",
-			"Barker",
-			"Caper",
-			"Chuck",
-			"Crocus",
-			"Carrot Cake",
-			"Columbo",
-			"Corbett",
-			"Digger",
-			"Duster",
-			"Dexter",
-			"Denzil",
-			"Dinky",
-			"Erasmus",
-			"Eveready",
-			"Eric",
-			"Ernest",
-			"Fred",
-			"Fuzz",
-			"Fighter",
-			"Flop",
-			"Fungus",
-			"Giant",
-			"George",
-			"Gus",
-			"Gorilla",
-			"Horatio",
-			"Hoppity",
-			"Happy",
-			"Hurley",
-			"Ivan",
-			"Inky",
-			"Imp",
-			"Iain",
-			"Joe",
-			"Jumpy",
-			"Jack",
-			"Jelly",
-			"Kanga",
-			"Kristoff",
-			"Killer",
-			"Lennon",
-			"Lollop",
-			"Loverboy",
-			"Lex",
-			"Monty",
-			"Moose",
-			"Merlin",
-			"Maverick",
-			"Morecambe",
-			"Nelson",
-			"Napoleon",
-			"Noodle",
-			"Neville",
-			"Oscar",
-			"Orville",
-			"Ollie",
-			"Otto",
-			"Orson",
-			"Oberon",
-			"Percy",
-			"Pinky",
-			"Pando",
-			"Peter",
-			"Rolf",
-			"Rankin",
-			"Roger",
-			"Roly",
-			"Romer",
-			"Rusty",
-			"Rex",
-			"Smudge",
-			"Smoke",
-			"Silver",
-			"Sage",
-			"Softy",
-			"Toby",
-			"Tufty",
-			"Thumper",
-			"Titch",
-			"Tubby",
-			"T-Rex",
-			"Thomas",
-			"Turnip",
-			"Victor",
-			"Vernon",
-			"Wesley",
-			"Wise",
-			"Whisper",
-			"Ziggy",
-			"Zayn",
-			"Zanzibar"
-		));
-	
-	
 	private String name;
 	private int sex; // 0 = male, 1 = female
 	
@@ -255,14 +44,22 @@ public class Hare {
 		
 		// generate Name
 		if(getSex() == 0) {
-			Collections.shuffle(fName);
-			name = fName.get(0);
-			fName.remove(0);
+			if(JumpTrial.fName.size() == 0)
+				name = "Hare";
+			else {
+				Collections.shuffle(JumpTrial.fName);
+				name = JumpTrial.fName.get(0);
+				JumpTrial.fName.remove(0);
+			}
 		}
 		else {
-			Collections.shuffle(mName);
-			name = mName.get(0);
-			mName.remove(0);
+			if(JumpTrial.mName.size() == 0)
+				name = "Hare";
+			else {
+				Collections.shuffle(JumpTrial.mName);
+				name = JumpTrial.mName.get(0);
+				JumpTrial.mName.remove(0);
+			}
 		}
 	}
 	

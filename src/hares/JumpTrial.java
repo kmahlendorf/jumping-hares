@@ -1,10 +1,12 @@
 package hares;
 
 
+import java.io.FileReader;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 
@@ -49,6 +51,10 @@ public class JumpTrial {
 	public static Color b_color = new Color(238,216,174);
 	
 	
+	// hare names
+	public static ArrayList<String> fName;
+	public static ArrayList<String> mName;
+	
 	private static int lvl = 0;
 	
 	public Image card_bg;
@@ -86,6 +92,9 @@ public class JumpTrial {
 		female = loadImage(female_hare_image);
 		male = loadImage(male_hare_image);
 		arrow = loadImage(arrow_path);
+		
+		
+		loadNames("src/images/names.csv");
 	}
 	
 	public static Hare[] makeDeck() {
@@ -119,8 +128,26 @@ public class JumpTrial {
 		}
 		return img;
 	}
-
 	
+	private void loadNames(String path) {
+		fName = new ArrayList<String>();
+		mName = new ArrayList<String>();
+		
+		try(BufferedReader br = new BufferedReader( new FileReader(path))){
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] values = line.split(",");
+				fName.add(values[0]);
+				mName.add(values[1]);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Loaded " + fName.size() + " names from file.");
+	}
+
 
 	 /**
     * Set game level
